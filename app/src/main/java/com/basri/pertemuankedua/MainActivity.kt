@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
     var hasil = 0
     var nilaiSatu = 0
     var nilaiDua = 0
+    var dataHitung = arrayListOf<String>("1","2","3","4","5")
+    val dataArray : ArrayList<ModelHitung> = ArrayList()
+    lateinit var adapter : AdapterHitung
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 //        Log.e("TAG","Model profil ${modelProfil.kelamin}")
 
 
+        dataRecylerview()
         //aplikasi arimatika
         //btn butuh action klik
         btn_hitung.setOnClickListener {
@@ -51,12 +55,17 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG).show()
             } else{
 
-                nilaiSatu = edt_nilai_dua.text.toString().toInt()
+                nilaiSatu = edt_nilai_satu.text.toString().toInt()
                 nilaiDua = edt_nilai_dua.text.toString().toInt()
 
                 //penjumlahan
                 hasil = nilaiSatu + nilaiDua
                 tv_result.text = "Hasil penjumalahan : $hasil"
+
+               val modelHitung = ModelHitung(hasil.toString())
+                dataArray.add(modelHitung)
+                adapter.notifyDataSetChanged()
+
 
 
             }
@@ -64,14 +73,12 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        dataRecylerview()
 
 
     }
 
     private fun dataRecylerview() {
-        val dataHitung = arrayOf("1","2","3","4","5","Data akhir")
-        val dataArray : ArrayList<ModelHitung> = ArrayList()
+
         //for looping
         dataHitung.forEach {
             val modelHitung = ModelHitung(it)
@@ -83,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         rv_data.layoutManager = GridLayoutManager(this,2)
         //rv_data.layoutManager = LinearLayoutManager(this)
          /// membuat objek adapter
-        val adapter = AdapterHitung(dataArray)
+         adapter = AdapterHitung(dataArray)
         //set objek adapter ke id recylerview
         rv_data.adapter = adapter
 
