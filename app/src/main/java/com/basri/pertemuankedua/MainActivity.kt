@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         //aplikasi arimatika
         //btn butuh action klik
-
         btn_hitung.setOnClickListener {
 
             if (edt_nilai_satu.text.toString().isNullOrEmpty()){
@@ -62,6 +63,29 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+        dataRecylerview()
+
+
+    }
+
+    private fun dataRecylerview() {
+        val dataHitung = arrayOf("1","2","3","4","5","Data akhir")
+        val dataArray : ArrayList<ModelHitung> = ArrayList()
+        //for looping
+        dataHitung.forEach {
+            val modelHitung = ModelHitung(it)
+            dataArray.add(modelHitung)
+        }
+
+
+        rv_data.setHasFixedSize(true)
+        rv_data.layoutManager = GridLayoutManager(this,2)
+        //rv_data.layoutManager = LinearLayoutManager(this)
+         /// membuat objek adapter
+        val adapter = AdapterHitung(dataArray)
+        //set objek adapter ke id recylerview
+        rv_data.adapter = adapter
 
 
     }
