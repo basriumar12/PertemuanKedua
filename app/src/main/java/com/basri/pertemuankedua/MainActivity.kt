@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     val dataArray : ArrayList<ModelHitung> = ArrayList()
     lateinit var adapter : AdapterHitung
 
+    var adapterHitung  = AdapterHitung(dataArray)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         rv_data.layoutManager = GridLayoutManager(this,2)
         //rv_data.layoutManager = LinearLayoutManager(this)
          /// membuat objek adapter
-         adapter = AdapterHitung(dataArray)
+        adapter = AdapterHitung(dataArray)
         //set objek adapter ke id recylerview
         rv_data.adapter = adapter
 
